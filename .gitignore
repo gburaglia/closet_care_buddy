@@ -1,0 +1,4 @@
+virtualenv .venv
+.env
+static/imgs/shots
+chroma_db
