@@ -1,7 +1,7 @@
 import datetime
 import os
 import cv2
-from flask import Flask, Response, render_template, request
+from flask import Flask, Response, redirect, render_template, request, url_for
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -14,15 +14,16 @@ app =Flask(__name__, template_folder = 'templates', static_folder='static',stati
 def index():
     return render_template('index.html')
 
-@app.route('/milestone1')
-def interaction_1():
+@app.route('/capture_pic', methods=['GET', 'POST'])
+def capture_pic():
+    print("here")
     global camera
     if request.method == 'POST':
         if request.form.get('click') == 'Capture':
             global capture
             capture=1
-    #images = update_image_folder()
-    return render_template('index.html', active='interaction_1')
+    images = update_image_folder()
+    return render_template('step1.html', images= images, active='capture_pic')
 
 
 #make shots directory to save pics
@@ -50,8 +51,7 @@ def gen_frames():  # generate frame by frame from camera
             if(capture):
                 capture=0
                 now = datetime.datetime.now()
-                p = os.path.sep.join(['static/imgs/shots', "shot_{}.png".format(str(now).replace(":",'_'))])
-                p = p.replace(" ","_")
+                p = os.path.sep.join(['static/imgs/shots', "latest_capture.png"])
                 cv2.imwrite(p, frame)
                 update_image_folder()
             try:
@@ -84,6 +84,11 @@ def resize_and_crop_width(image, target_width, target_height):
         cropped_image = cv2.copyMakeBorder(resized_image, 0, 0, padding, padding, cv2.BORDER_CONSTANT, value=(0, 0, 0))
 
     return cropped_image
+
+
+@app.route('/display/<filename>')
+def display_image(filename):
+    return redirect(url_for('static', filename='imgs/shots/' + filename))
     
     
 @app.route('/video_feed')

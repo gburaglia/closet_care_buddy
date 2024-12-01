@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{%block content%}
+    <div class="gallery text-center">
+        {% if images %}
+        {% for image in images %}
+            <img src="{{ url_for('display_image', filename=image) }}" alt="Image" height="20%">
+        {% endfor %}
+        {% else %}
+        <p>Capture an image to display the gallery</p>
+        {% endif %}
+
+    </div>
+{%endblock%}
