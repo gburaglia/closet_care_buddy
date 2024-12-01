@@ -1,0 +1,5 @@
+.rounded-video {
+    border-radius: 15px; /* Adjust the radius value as needed */
+    overflow: hidden;    /* Ensures the corners are properly clipped */
+    border: 2px solid #ddd; /* Optional: Add a border around the image */
+}
