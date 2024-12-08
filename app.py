@@ -3,6 +3,7 @@ import os
 import cv2
 from flask import Flask, Response, redirect, render_template, request, url_for
 from dotenv import load_dotenv
+from fashion_models import runFashionModels
 
 load_dotenv()
 global capture
@@ -23,7 +24,8 @@ def capture_pic():
             global capture
             capture=1
     images = update_image_folder()
-    return render_template('step1.html', images= images, active='capture_pic')
+    caption = runFashionModels(images[0])
+    return render_template('step1.html', images= images, caption=caption, active='capture_pic')
 
 
 #make shots directory to save pics

@@ -1,5 +1,24 @@
-.rounded-video {
-    border-radius: 15px; /* Adjust the radius value as needed */
-    overflow: hidden;    /* Ensures the corners are properly clipped */
-    border: 2px solid #ddd; /* Optional: Add a border around the image */
+
+
+.caption-card {
+    margin-top: 20px;
+}
+
+.card {
+    background-color: #f8f9fa; /* Light gray background */
+    border-radius: 8px;       /* Rounded corners */
+}
+
+.card-text {
+    font-size: 1rem;
+    color: #333;             /* Neutral text color */
+}
+/* Unified media styling for video and images */
+.media-container {
+    border-radius: 15px; /* Rounded corners */
+    overflow: hidden;    /* Ensure content respects the border radius */
+    border: 2px solid #ddd; /* Optional: Add a border for aesthetics */
+    margin-bottom: 20px; /* Space below the media element */
+    max-width: 100%;     /* Ensure responsiveness */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
 }

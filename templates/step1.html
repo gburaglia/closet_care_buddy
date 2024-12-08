@@ -1,13 +1,23 @@
 {% extends "base.html" %}
 {%block content%}
     <div class="gallery text-center">
+        <h3 class="mt-4">Closet Care Buddy</h3>
+        <h1>Snapshot</h1>
         {% if images %}
         {% for image in images %}
-            <img src="{{ url_for('display_image', filename=image) }}" alt="Image" height="20%">
+            <img class="media-container" src="{{ url_for('display_image', filename=image) }}" alt="Image" height="20%">
         {% endfor %}
         {% else %}
         <p>Capture an image to display the gallery</p>
         {% endif %}
+        <div class="mt-2 caption-card d-flex justify-content-center align-items-center">
+            <div class="card text-center shadow" style="max-width: 400px;">
+                <div class="card-body">
+                        The red sweater appears to be in a classic style, with a vibrant hue suggesting it is relatively new or well-maintained. Its clean lines and lack of visible wear make it a versatile piece suitable for both casual and slightly dressier occasions.
+                </div>
+               
+            </div>
+        </div>
 
     </div>
 {%endblock%}
