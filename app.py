@@ -27,10 +27,23 @@ def capture_pic():
     caption = runFashionModels(images[0])
     return render_template('step1.html', images= images, caption=caption, active='capture_pic')
 
+@app.route('/outfit_options', methods=['GET', 'POST'])
+def get_outfit_inspo():
+    
+    images = outfit_options()
+    return render_template('step2.html', outfitImages= images, active='get_outfit_inspo')
+
+def outfit_options():
+     # Define the folder where images are stored
+    image_folder = 'static/imgs/options'
+    # List all image filenames in the folder
+    images = sorted(os.listdir(image_folder))
+    return images
 
 #make shots directory to save pics
 try:
     os.mkdir('./static/imgs/shots')
+    os.mkdir('./static/imgs/options')
 except OSError as error:
     pass
 
