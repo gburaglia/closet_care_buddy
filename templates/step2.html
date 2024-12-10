@@ -2,18 +2,12 @@
 {%block content%}
     <div class="gallery text-center">
         <h3 class="mt-4">Closet Care Buddy</h3>
-        <h1>Snapshot</h1>
-        {% if images %}
-        {% for image in images %}
-            <img class="media-container" src="{{ url_for('display_image', filename=image) }}" alt="Image" height="20%">
-        {% endfor %}
-        {% else %}
-        <p>Capture an image to display the gallery</p>
-        {% endif %}
+        <h1>Outfit Inspiration</h1>
+        <img class="media-container" src="{{ image }}" alt="Image" style="height: 20%;">
         <div class="mt-2 caption-card d-flex justify-content-center align-items-center">
-            <div class="card text-center shadow" style="max-width: 400px;">
+            <div class="card text-center shadow" style="max-width: 200px;">
                 <div class="card-body">
-                    {{ caption }}
+                    {{ prompt }}
                 </div>
                
             </div>

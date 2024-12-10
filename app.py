@@ -1,15 +1,19 @@
 import datetime
 import os
 import cv2
-from flask import Flask, Response, redirect, render_template, request, url_for
+from flask import Flask, Response, redirect, render_template, request, url_for, session
 from dotenv import load_dotenv
-from fashion_models import runFashionModels
+from fashion_models import runFashionModels, getFashionCaption
+from styling_models import runStylingModels
+
 
 load_dotenv()
 global capture
 capture=0
 
 app =Flask(__name__, template_folder = 'templates', static_folder='static',static_url_path='/')
+# Secret key for session management
+app.secret_key = os.urandom(24)
 
 @app.route('/')
 def index():
@@ -25,13 +29,16 @@ def capture_pic():
             capture=1
     images = update_image_folder()
     caption = runFashionModels(images[0])
+    # Store the caption in the session
+    session['fashion_caption'] = caption
     return render_template('step1.html', images= images, caption=caption, active='capture_pic')
 
 @app.route('/outfit_options', methods=['GET', 'POST'])
-def get_outfit_inspo():
-    
-    images = outfit_options()
-    return render_template('step2.html', outfitImages= images, active='get_outfit_inspo')
+def outfit_options():
+    global_caption = session.get('fashion_caption', '')
+    print("The gc is:" + global_caption)
+    prompt, image_url = runStylingModels(global_caption)
+    return render_template('step2.html', image= image_url, prompt = prompt, active='get_outfit_inspo')
 
 def outfit_options():
      # Define the folder where images are stored
@@ -43,7 +50,6 @@ def outfit_options():
 #make shots directory to save pics
 try:
     os.mkdir('./static/imgs/shots')
-    os.mkdir('./static/imgs/options')
 except OSError as error:
     pass
 

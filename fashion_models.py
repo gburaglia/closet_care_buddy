@@ -18,11 +18,13 @@ from langchain_chroma import Chroma
 from langchain_openai import OpenAIEmbeddings
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 
-
+import re
 import pandas as pd
 import tempfile
 import shutil
 temp_dirs = []
+fashion_caption_global = ""
+
 
 def img2doc(img_path):
     
@@ -51,11 +53,8 @@ def img2doc(img_path):
 
 
 def cleanup_temp_dir(temp_dir):
-    try:
-        shutil.rmtree(temp_dir)
-        print(f"Temporary directory {temp_dir} cleaned up successfully.")
-    except Exception as e:
-        print(f"Failed to clean up temporary directory {temp_dir}: {e}")
+    shutil.rmtree(temp_dir)
+
 
 def textGeneration_langChain_RAG(img_path):
     llm = ChatOpenAI(model="gpt-4o", temperature=0)
@@ -92,4 +91,14 @@ def textGeneration_langChain_RAG(img_path):
 def runFashionModels(img_path):
     img_path_complete = "static/imgs/shots/" + img_path
     fashion_caption = textGeneration_langChain_RAG(img_path_complete)
+    setFashionCaption(fashion_caption)
     return fashion_caption
+
+# Function to set the fashion caption
+def setFashionCaption(caption):
+    global fashion_caption_global
+    fashion_caption_global = caption
+
+# Getter function for fashion_caption
+def getFashionCaption():
+    return fashion_caption_global
