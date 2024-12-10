@@ -3,9 +3,9 @@
       <div class="container">
         <div class="row justify-content-center">
             <div class="col-lg-3 text-center">
-                <h3 class="mt-4">Closet Care Buddy</h3>
+                <h3 class="mt-3">Closet Care Buddy</h3>
                 <h1>Camera</h1>
-                <img src="{{ url_for('video_feed') }}" class="media-container mb-3" alt="Video Feed">
+                <img src="{{ url_for('video_feed') }}" class="media-container mb-2" alt="Video Feed">
                 <form method="post" action="{{ url_for('capture_pic') }}">
                     <input id="captureBtn" type="submit" class="mt-2 btn btn-dark btn-lg btn-block" value="Capture" name="click"/>
                 </form>       

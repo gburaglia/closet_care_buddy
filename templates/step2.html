@@ -1,20 +1,44 @@
 {% extends "base.html" %}
 {%block content%}
     <div class="gallery text-center">
-        <h3 class="mt-4">Closet Care Buddy</h3>
+        <h3 class="mt-3">Closet Care Buddy</h3>
         <h1>Outfit Inspiration</h1>
-        <img class="media-container" src="{{ image }}" alt="Image" style="height: 20%;">
-        <div class="mt-2 caption-card d-flex justify-content-center align-items-center">
-            <div class="card text-center shadow" style="max-width: 200px;">
-                <div class="card-body">
-                    {{ prompt }}
+        <div class="d-flex justify-content-center align-items-center mt-2 mb-2">
+            <div class="output-container">
+                <img class="output-image" src="{{ image }}" alt="Image">
+            </div>
+        </div>        
+        <div class="mt-2 mb-2 caption-card d-flex justify-content-center align-items-center">
+            <div class="accordion shadow" id="captionAccordion" style="max-width: 400px;">
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingCaption">
+                        <button 
+                            class="accordion-button collapsed" 
+                            type="button" 
+                            data-bs-toggle="collapse" 
+                            data-bs-target="#collapseCaption" 
+                            aria-expanded="false" 
+                            aria-controls="collapseCaption">
+                            Show/Hide Prompt 
+                        </button>
+                    </h2>
+                    <div id="collapseCaption" class="accordion-collapse collapse" aria-labelledby="headingCaption" data-bs-parent="#captionAccordion">
+                        <div class="accordion-body">
+                            {{ prompt }}
+                        </div>
+                    </div>
                 </div>
-               
             </div>
         </div>
-        <form method="post" action="{{ url_for('outfit_options') }}">
-            <input id="captureBtn" type="submit" class="mt-2 btn btn-dark btn-lg btn-block" value="Outfit Inspo" name="click"/>
-        </form>   
+        <div class="d-flex justify-content-center gap-4 mt-2 mb-2">
+            <!-- Back Button -->
+            <form method="get" action="{{ url_for('capture_pic') }}">
+                <input id="backBtn" type="submit" class="btn btn-light btn-lg" value="Back" />
+            </form>
+            <form method="post" action="{{ url_for('outfit_options') }}">
+                <input id="captureBtn" type="submit" class="btn btn-dark btn-lg btn-block" value="Other Outfit Inspo" name="click"/>
+            </form>
+        </div>   
 
     </div>
 {%endblock%}
